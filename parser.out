@@ -1,0 +1,221 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> line
+Rule 1     line -> func
+Rule 2     line -> FNAME ASSIGN func
+Rule 3     func -> term
+Rule 4     func -> LAMBDA FNAME ARROW func
+Rule 5     term -> single
+Rule 6     term -> term single
+Rule 7     single -> FNAME
+Rule 8     single -> LPAREN func RPAREN
+
+Terminals, with rules where they appear
+
+ARROW                : 4
+ASSIGN               : 2
+FNAME                : 2 4 7
+LAMBDA               : 4
+LPAREN               : 8
+RPAREN               : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+func                 : 1 2 4 8
+line                 : 0
+single               : 5 6
+term                 : 3 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . line
+    (1) line -> . func
+    (2) line -> . FNAME ASSIGN func
+    (3) func -> . term
+    (4) func -> . LAMBDA FNAME ARROW func
+    (5) term -> . single
+    (6) term -> . term single
+    (7) single -> . FNAME
+    (8) single -> . LPAREN func RPAREN
+
+    FNAME           shift and go to state 3
+    LAMBDA          shift and go to state 5
+    LPAREN          shift and go to state 7
+
+    line                           shift and go to state 1
+    func                           shift and go to state 2
+    term                           shift and go to state 4
+    single                         shift and go to state 6
+
+state 1
+
+    (0) S' -> line .
+
+
+
+state 2
+
+    (1) line -> func .
+
+    $end            reduce using rule 1 (line -> func .)
+
+
+state 3
+
+    (2) line -> FNAME . ASSIGN func
+    (7) single -> FNAME .
+
+    ASSIGN          shift and go to state 8
+    FNAME           reduce using rule 7 (single -> FNAME .)
+    LPAREN          reduce using rule 7 (single -> FNAME .)
+    $end            reduce using rule 7 (single -> FNAME .)
+
+
+state 4
+
+    (3) func -> term .
+    (6) term -> term . single
+    (7) single -> . FNAME
+    (8) single -> . LPAREN func RPAREN
+
+    $end            reduce using rule 3 (func -> term .)
+    RPAREN          reduce using rule 3 (func -> term .)
+    FNAME           shift and go to state 10
+    LPAREN          shift and go to state 7
+
+    single                         shift and go to state 9
+
+state 5
+
+    (4) func -> LAMBDA . FNAME ARROW func
+
+    FNAME           shift and go to state 11
+
+
+state 6
+
+    (5) term -> single .
+
+    FNAME           reduce using rule 5 (term -> single .)
+    LPAREN          reduce using rule 5 (term -> single .)
+    $end            reduce using rule 5 (term -> single .)
+    RPAREN          reduce using rule 5 (term -> single .)
+
+
+state 7
+
+    (8) single -> LPAREN . func RPAREN
+    (3) func -> . term
+    (4) func -> . LAMBDA FNAME ARROW func
+    (5) term -> . single
+    (6) term -> . term single
+    (7) single -> . FNAME
+    (8) single -> . LPAREN func RPAREN
+
+    LAMBDA          shift and go to state 5
+    FNAME           shift and go to state 10
+    LPAREN          shift and go to state 7
+
+    func                           shift and go to state 12
+    term                           shift and go to state 4
+    single                         shift and go to state 6
+
+state 8
+
+    (2) line -> FNAME ASSIGN . func
+    (3) func -> . term
+    (4) func -> . LAMBDA FNAME ARROW func
+    (5) term -> . single
+    (6) term -> . term single
+    (7) single -> . FNAME
+    (8) single -> . LPAREN func RPAREN
+
+    LAMBDA          shift and go to state 5
+    FNAME           shift and go to state 10
+    LPAREN          shift and go to state 7
+
+    func                           shift and go to state 13
+    term                           shift and go to state 4
+    single                         shift and go to state 6
+
+state 9
+
+    (6) term -> term single .
+
+    FNAME           reduce using rule 6 (term -> term single .)
+    LPAREN          reduce using rule 6 (term -> term single .)
+    $end            reduce using rule 6 (term -> term single .)
+    RPAREN          reduce using rule 6 (term -> term single .)
+
+
+state 10
+
+    (7) single -> FNAME .
+
+    FNAME           reduce using rule 7 (single -> FNAME .)
+    LPAREN          reduce using rule 7 (single -> FNAME .)
+    $end            reduce using rule 7 (single -> FNAME .)
+    RPAREN          reduce using rule 7 (single -> FNAME .)
+
+
+state 11
+
+    (4) func -> LAMBDA FNAME . ARROW func
+
+    ARROW           shift and go to state 14
+
+
+state 12
+
+    (8) single -> LPAREN func . RPAREN
+
+    RPAREN          shift and go to state 15
+
+
+state 13
+
+    (2) line -> FNAME ASSIGN func .
+
+    $end            reduce using rule 2 (line -> FNAME ASSIGN func .)
+
+
+state 14
+
+    (4) func -> LAMBDA FNAME ARROW . func
+    (3) func -> . term
+    (4) func -> . LAMBDA FNAME ARROW func
+    (5) term -> . single
+    (6) term -> . term single
+    (7) single -> . FNAME
+    (8) single -> . LPAREN func RPAREN
+
+    LAMBDA          shift and go to state 5
+    FNAME           shift and go to state 10
+    LPAREN          shift and go to state 7
+
+    func                           shift and go to state 16
+    term                           shift and go to state 4
+    single                         shift and go to state 6
+
+state 15
+
+    (8) single -> LPAREN func RPAREN .
+
+    FNAME           reduce using rule 8 (single -> LPAREN func RPAREN .)
+    LPAREN          reduce using rule 8 (single -> LPAREN func RPAREN .)
+    $end            reduce using rule 8 (single -> LPAREN func RPAREN .)
+    RPAREN          reduce using rule 8 (single -> LPAREN func RPAREN .)
+
+
+state 16
+
+    (4) func -> LAMBDA FNAME ARROW func .
+
+    $end            reduce using rule 4 (func -> LAMBDA FNAME ARROW func .)
+    RPAREN          reduce using rule 4 (func -> LAMBDA FNAME ARROW func .)
+
